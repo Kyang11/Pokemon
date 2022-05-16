@@ -1,0 +1,35 @@
+{% extends 'base.html.j2' %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock %}
+
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+
+
+{% block content%}
+<div class="body">
+    <h1 class=glow_effect> Please go Catch Pokemon by click Hunt Pokemon!</h1>
+    <div class="loader">
+        <div class="face face1">
+            <div class="circle"></div>
+        </div>
+        <div class="face face2">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <div>
+        <h2> あなたは世界で最もエリートなトレーナーと戦うために選ばれました.</h2>
+        <p>注意して進み、訓練場に向かいましょう.</p>
+        <p class="choice">Please pick 5 pokemon for battle</p>
+        <p class="last_body_text">今は後戻りはありません!!アリーナに進み、あなたの運命を待ちます。</p>
+    
+    </div>
+</div>
+    
+{% endblock %}

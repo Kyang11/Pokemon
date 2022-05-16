@@ -1,0 +1,145 @@
+.glow_effect{
+    color: white;
+    text-align: center;
+    font-family: cursive;
+    font-size: 50px;
+
+    animation: glow 1s ease-in-out infinite alternate;
+    
+
+}
+
+@-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00cbe6, 0 0 40px #0077e6, 0 0 50px #00b8e6, 0 0 60px #0092e6, 0 0 70px #00c4e6;
+    }
+    
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #4de4ff, 0 0 40px #4dcdff, 0 0 50px #4dafff, 0 0 60px #4dc7ff, 0 0 70px #4dafff, 0 0 80px #4dbeff;
+    }
+  }
+
+h5{
+    color: white;
+    font-family: cursive;
+   
+    text-align: center;
+}
+
+h2{
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-bottom: 0px;
+    text-align: center;
+    font-family: cursive;
+}
+
+p{
+    margin-left: 20px;
+    font-family: cursive;
+}
+
+/* .girl_image {
+    height: 200px;
+    margin-left: 200px;
+    
+} */
+
+/* .boy_image{
+    height: 220px;
+    margin-left: 400px;
+} */
+
+/* .choice p{
+    font-family: cursive;
+
+}
+
+.last_body_text{
+    font-family: cursive;
+} */
+
+.body{
+    color: rgb(156, 191, 197);
+    margin: 0px;
+    padding: 20px;
+    margin-right: 0px;
+    margin-left: 10px;
+  
+    
+    min-height: 600px;
+    width: 115%;
+    background: #82daf5;
+    /* width: 3000px; */
+}
+
+.container{
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+
+
+}
+
+.loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+  }
+  .loader .face{
+    position: absolute;
+    /* border:2px solid #121212; */
+    border:2px solid #ff0f9f;
+  }
+  /* .loader .face.face1{
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background:090909;
+    box-shadow:0 0 10px rgba(0,0,0,1);
+    border-radius: 50%;
+    border-left: 2px solid #ffff00;
+    border-top: 2px solid #ffff00;
+    animation: ani1 3s linear infinite;
+  } */
+  .loader .face.face2{
+    top: 30px;
+    left:30px;
+    right: 30px;
+    bottom: 30px;
+    /* background:#090909; */
+    background: rgb(25, 237, 173);
+    
+    box-shadow:0 0 10px rgba(0,0,0,1);
+    border-radius: 50%;
+    border-right: 0px solid #03a9f4;
+    border-bottom: 50px solid rgb(69, 109, 141);
+   
+    animation: ani2 3s linear infinite;
+  
+  }
+ 
+  @keyframes ani1{
+    0%{
+      transform:rotate(0deg);
+    }
+    100%{
+      transform:rotate(360deg);
+    }
+  }
+  @keyframes ani2{
+    0%{
+      transform:rotate(0deg);
+    }
+    100%{
+      transform:rotate(-360deg);
+    }
+  }
+  
+  
+  

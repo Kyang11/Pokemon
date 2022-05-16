@@ -1,0 +1,86 @@
+{% extends 'base.html.j2'%}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pokemon.css')}}">
+{% endblock %}
+
+{% block title %}
+Pokemon
+{% endblock %}
+
+
+{% block content %}
+<div class="body">
+<h1 class = "glow_effect">Pick Your Pokemon</h1>
+<form action="{{url_for('main.pokemon')}}" method="POST">
+  <div class="textbox_button">
+  {{form.hidden_tag()}}
+  
+    <div class="mb-3">
+      {{form.name.label(class="form-label")}}
+      {{form.name(class="form-control w-25")}}
+
+      {% for error in form.name.errors %}
+        <small style="color:red"></small>{{error}}</div>
+
+      {% endfor %}
+    
+    </div>
+    <div>
+    {{form.submit(class="btn btn-dark form-control w-25 mb-3")}}
+    </div>
+  </div>
+    
+</form>
+
+{% if pokemons %}
+
+{% for poke in pokemons %}
+<div class="card" style="width: 20rem; display: inline-block; width: 19%">
+  <div class="for_image">
+    <img src="{{poke.sprite_url}}"  class="card-img-top" alt="...">
+  </div>
+  <div class="card-body">
+    <h4 class="card-title text-center">{{poke.pokemon_name}}</h4>
+
+  </div>
+  <table class="table table-borderless " style="text-align: right; width: 75%; margin:0px auto;" >
+      <tbody>
+      <tr>
+        <td scope="col">Ability Name</th>
+        <td>{{poke.ability_name}}</td>
+      </tr>
+      <tr>
+        <td scope="col">Base Experience</th>
+        <td>{{poke.base_experience}}</td>
+      </tr>
+      <tr>
+        <td scope="col">Attack Base Stat</th>
+        <td>{{poke.attack_base_stat}}</td>
+      </tr>
+      <tr>
+        <td scope="col">Hp Base Stat</th>
+        <td>{{poke.hp_base_stat}}</td>
+      </tr>
+      <tr>
+        <td scope="col">Defense Base Stat</th>
+        <td>{{poke.defense_base_stat}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-body">
+    <a href="#" class="card-link"></a>
+    {# <a href="#" class="card-link">Another link</a> #}
+  </div>
+
+</div>
+{% endfor %}
+
+
+
+
+{% endif %}
+</div>
+
+{% endblock %}
