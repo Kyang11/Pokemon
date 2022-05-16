@@ -11,7 +11,7 @@ Pokemon - Team
 
 {% block content %}
 <div class="body">
-<h1 class="glow_effect">Here is your team</h1>
+<h1 class="glow_effect">Opponent Team</h1>
 
 {% for poke in pokemons %}
 
@@ -48,10 +48,10 @@ Pokemon - Team
       </tbody>
     </table>
 
-    <div class="card-body"> 
-      <a href="{{url_for('main.delete_pokemon', id=poke.poke_id)}}" class="card-link">Delete</a>
+    {# <div class="card-body"> 
+      <a href="{{url_for('main.delete_pokemon', id=poke_id)}}" class="card-link">Delete</a>
      
-     </div>
+     </div> #}
 
   </div>
 

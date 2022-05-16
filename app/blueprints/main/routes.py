@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, flash, url_for
 import requests
 from .import bp as main
 from ...forms import PokemonForm
-from ...models import Pokedex, Pokemon, User
+from app.models import Pokemon, Pokedex, User
 import random
 
 
@@ -45,29 +45,28 @@ def pokemon():
         new_pokemon.save()
         
 
-        new_poki=Pokedex()
-        new_poki.user_id=current_user.id
-        new_poki.name = new_pokemon.name
+        new_pokedex=Pokedex()
+        new_pokedex.user_id=current_user.id
+        new_pokedex.poke_id = new_pokemon.poke_id
         my_pokemon = Pokedex.query.filter_by(user_id = current_user.id).all()
 
         pokemons=''
         my_names=[]
         pokemon_list=[]
-        for catch in my_pokemon:
-            p=Pokemon.query.filter_by(name = catch.name).first().pokemon_name
+        for entry in my_pokemon:
+            p=Pokemon.query.filter_by(poke_id = entry.poke_id).first().pokemon_name
             my_names.append(p)
 
-        if new_pokemon.name in my_names:
+        if new_pokemon.pokemon_name in my_names:
 
             flash(f"Cannot select same pokemon","danger")
         else:
             if len(my_names)  < 5:
-                current_user.catch_pokemon(new_pokemon)
+                current_user.collect_poke(new_pokemon)
             else:
                 flash(f"You already have 5 pokemon","danger")
         pokemons = current_user.pokemon.all()
         pokemon_list=pokemons[:5]
-
        
         return render_template('pokemon.html.j2', pokemons=pokemon_list, form=form)
         # except:
@@ -78,24 +77,25 @@ def pokemon():
 @main.route('/pokemon_team', methods=['GET','POST'])
 @login_required
 def pokemon_team():
+    form = PokemonForm()
     pokemons = current_user.pokemon.all()
     pokemon_list=pokemons[:5]
-    return render_template('pokemon_team.html.j2', pokemons=pokemon_list)
+    return render_template('pokemon_team.html.j2', pokemons=pokemon_list, form=form)
 
 
 @main.route('/pokemon_battle', methods=['GET','POST'])
 @login_required
 def pokemon_battle():
-    
+    form = PokemonForm()
     users=User.query.filter(User.id != current_user.id).all()
-    dict_list = {}
+    big_list = {}
     for user in users:
         pokemons = user.pokemon.all()
-        pokemon_list=pokemons
-        dict_list[user.id]=pokemon_list
+        pokemon_list=pokemons[:5]
+        big_list[user.id]=pokemon_list
         
 
-    return render_template('pokemon_battle.html.j2', podict_list, users=users)
+    return render_template('pokemon_battle.html.j2', pokemons=big_list, users=users, form=form)
 
 
 @main.route('/pokemon_battle_view/<int:id>', methods=['GET','POST'])
@@ -103,12 +103,12 @@ def pokemon_battle():
 def pokemon_battle_view(id):
     # print("this sucks")
     user=User.query.get(id)
-    flash(f"poke battle current_user:,{current_user.id}")
-    flash(f"poke battle user: , {user.id}")
+    print("poke battle current_user: ",current_user.id)
+    print("poke battle user: ", user.id)
     if request.method == "GET":
         choice = [0,1]
         selection = random.choice(choice)
-        flash(f"Selection:, {selection}")
+        print("Selection: ", selection)
         
     
         if selection == 1:
@@ -121,26 +121,21 @@ def pokemon_battle_view(id):
             flash(f'You won!!', 'primary')
         current_user.save()
         user.save()
-    users = User.query.dict_list = {}
-    dict_list={}
+    users = User.query.all()
+    big_list = {}
     for user in users:
         pokemons = user.pokemon.all()
-        pokemon_list=pokemons
-        dict_list[user.id]=pokemon_list
+        pokemon_list=pokemons[:5]
+        big_list[user.id]=pokemon_list
         
-    return render_template('pokemon_battle.html.j2', users=users, pokemons=dict_list)
+    return render_template('pokemon_battle.html.j2', users=users, pokemons=big_list)
 
 
 @main.route('/delete_pokemon/<int:id>')
 @login_required
 def delete_pokemon(id):       
-    p= Pokemon.query.filter_by(name=id).first()
+    p= Pokemon.query.filter_by(poke_id=id).first()
     
-    current_user.revoke_pokemon(p)
+    current_user.remove_poke(p)
     
-    return redirect(url_for('pokemon_team.html.j2'))
-
-
-    # change name here 
-
-
+    return redirect(url_for('main.pokemon_team'))
